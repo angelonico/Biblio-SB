@@ -1,23 +1,19 @@
-import Pyro5.api
+# Servidor Flask (recibe peticiones HTTP)
 from flask import Flask, jsonify
+from master import consultar_esclavo, listar_esclavos
+from dotenv import load_dotenv
+import os
+
+# Carga variables de entorno desde el archivo .env
+load_dotenv()
+FLASK_PORT = int(os.getenv("FLASK_PORT", 5000))
 
 app = Flask(__name__)
 
 
-def consultar_esclavo(nombre_esclavo):
-    ns = Pyro5.api.locate_ns(host="localhost", port=9090)
-    uri = ns.lookup(nombre_esclavo)
-    esclavo = Pyro5.api.Proxy(uri)
-    return esclavo.obtener_informacion()
-
-
-def listar_esclavos():
-    ns = Pyro5.api.locate_ns(host="localhost", port=9090)
-    return ns.list(prefix="esclavo.")
-
-
 @app.route("/esclavos", methods=["GET"])
 def endpoint_listar_esclavos():
+    """Endpoint para listar todos los esclavos registrados."""
     try:
         esclavos = listar_esclavos()
         esclavos_dict = {nombre: uri for nombre, uri in esclavos.items()}
@@ -28,6 +24,7 @@ def endpoint_listar_esclavos():
 
 @app.route("/esclavos/<nombre_esclavo>", methods=["GET"])
 def endpoint_consultar_esclavo(nombre_esclavo):
+    """Endpoint para consultar un esclavo específico."""
     try:
         info = consultar_esclavo(nombre_esclavo)
         return jsonify({"nombre": nombre_esclavo, "informacion": info}), 200
@@ -36,4 +33,4 @@ def endpoint_consultar_esclavo(nombre_esclavo):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=4000)
+    app.run(host="0.0.0.0", port=FLASK_PORT)

@@ -1,0 +1,5 @@
+Pyro5
+Flask
+psycopg2
+postgresql
+python-dotenv

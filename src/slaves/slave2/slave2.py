@@ -4,7 +4,7 @@ from libros import Libro
 
 def main():
     daemon = Pyro5.api.Daemon()
-    uri = daemon.register(Libro)
+    uri = daemon.register(Libro())
     print("URI del esclavo:", uri)
 
     ns = Pyro5.api.locate_ns(host="localhost", port=9090)

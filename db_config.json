@@ -1,0 +1,26 @@
+{
+  "pdf": {
+    "host": "localhost",
+    "database": "pdf",
+    "user": "user_pdf",
+    "password": "pass_pdf"
+  },
+  "libros": {
+    "host": "localhost",
+    "database": "libros",
+    "user": "user_libros",
+    "password": "pass_libros"
+  },
+  "videos": {
+    "host": "localhost",
+    "database": "videos",
+    "user": "user_videos",
+    "password": "pass_videos"
+  },
+  "imagenes": {
+    "host": "localhost",
+    "database": "imagenes",
+    "user": "user_imagenes",
+    "password": "pass_imagenes"
+  }
+}

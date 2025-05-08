@@ -1,10 +1,12 @@
+# Nodo esclavo que maneja PDFs
 import Pyro5.api
 from pdf import Pdf
 
 
 def main():
     daemon = Pyro5.api.Daemon()
-    uri = daemon.register(Pdf)
+    instance = Pdf()
+    uri = daemon.register(instance)
     print("URI del esclavo:", uri)
 
     ns = Pyro5.api.locate_ns(host="localhost", port=9090)
