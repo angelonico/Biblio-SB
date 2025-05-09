@@ -16,7 +16,7 @@ def endpoint_listar_esclavos():
     """Endpoint para listar todos los esclavos registrados."""
     try:
         esclavos = listar_esclavos()
-        esclavos_dict = {nombre: uri for nombre, uri in esclavos.items()}
+        esclavos_dict = list(esclavos.keys())
         return jsonify(esclavos_dict), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -50,9 +50,6 @@ def endpoint_buscar_por_titulo():
 
         # Dividir el título en palabras clave
         palabras = titulo.split()
-
-        # Consultar al esclavo 'esclavo.pdf'
-        nombre_completo = "esclavo.pdf"
         print(palabras)
         resultados = query(palabras)
         return jsonify({"nombre": "pdf", "resultados": resultados}), 200

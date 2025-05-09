@@ -5,10 +5,27 @@ from connect_db import conectar_db
 @Pyro5.api.expose
 class Libro:
     def __init__(self):
-        pass
+        self.conn = conectar_db("libros")
+        if not self.conn:
+            raise Exception("No se pudo establecer conexión con la base de datos")
 
-    def libro(self):
-        return "Hola mundo desde el esclavo 2"
+    def buscar_por_titulo(self, palabras):
+        try:
+            cursor = self.conn.cursor()
+            query = "SELECT * FROM documentos WHERE " + " OR ".join(
+                [f"title ILIKE %s" for _ in palabras]
+            )
+            cursor.execute(query, [f"%{palabra}%" for palabra in palabras])
+            resultados = cursor.fetchall()
+            cursor.close()
+
+            if not resultados:
+                return {
+                    "mensaje": "No se encontraron documentos con los títulos especificados."
+                }
+            return resultados
+        except Exception as e:
+            return {"error": f"Error al realizar la búsqueda: {str(e)}"}
 
     def hello(self):
         return "Hola desde el servidor PDF!"
