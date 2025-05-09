@@ -35,4 +35,4 @@ class Pdf:
             return {"error": f"Error al realizar la búsqueda: {str(e)}"}
 
     def hello(self):
-        return "Hola desde el servidor PDF!"
+        return "Hola desde el esclavo PDF!"

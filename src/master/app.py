@@ -22,7 +22,7 @@ def endpoint_listar_esclavos():
         return jsonify({"error": str(e)}), 500
 
 
-@app.route("/tipo/<nombre_esclavo>", methods=["GET"])
+@app.route("/tipos/<nombre_esclavo>", methods=["GET"])
 def endpoint_consultar_esclavo(nombre_esclavo):
     """Endpoint para consultar un esclavo específico."""
     try:
