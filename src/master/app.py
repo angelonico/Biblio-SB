@@ -52,7 +52,7 @@ def endpoint_buscar_por_titulo():
         palabras = titulo.split()
         print(palabras)
         resultados = query(palabras)
-        return jsonify({"nombre": "pdf", "resultados": resultados}), 200
+        return jsonify({"resultados": resultados}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

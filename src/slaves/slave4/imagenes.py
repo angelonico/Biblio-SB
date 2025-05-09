@@ -12,18 +12,15 @@ class Image:
     def buscar_por_titulo(self, palabras):
         try:
             cursor = self.conn.cursor()
-            query = "SELECT * FROM documentos WHERE " + " OR ".join(
-                [f"title ILIKE %s" for _ in palabras]
+            query = (
+                "SELECT title, type_doc, category FROM documentos WHERE "
+                + " OR ".join([f"title ILIKE %s" for _ in palabras])
             )
             cursor.execute(query, [f"%{palabra}%" for palabra in palabras])
             resultados = cursor.fetchall()
             cursor.close()
+            return resultados if resultados else None
 
-            if not resultados:
-                return {
-                    "mensaje": "No se encontraron documentos con los títulos especificados."
-                }
-            return resultados
         except Exception as e:
             return {"error": f"Error al realizar la búsqueda: {str(e)}"}
 

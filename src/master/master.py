@@ -23,7 +23,7 @@ def listar_esclavos():
 
 def query(palabras):
     lista_esclavos = listar_esclavos()
-    resultados = []
+    resultados_generales = []
     for esclavo_nombre in lista_esclavos:
         if esclavo_nombre.startswith(ESCLAVO_PREFIX):
             ns = Pyro5.api.locate_ns(host=NAME_SERVER_HOST, port=NAME_SERVER_PORT)
@@ -31,8 +31,12 @@ def query(palabras):
             esclavo = Pyro5.api.Proxy(uri)
             try:
                 resultado = esclavo.buscar_por_titulo(palabras)
-                resultados.append({esclavo_nombre: resultado})
+                if resultado:
+                    resultados_generales.extend(resultado)
             except Exception as e:
                 print(f"Error al consultar el esclavo {esclavo_nombre}: {e}")
 
-    return resultados
+    if not resultados_generales:
+        return "No se encontraron resultados"
+
+    return resultados_generales
