@@ -9,7 +9,16 @@ Biblioteca digital distribuida. Sistema realizado para asigantura INFO288.
 - libro
 - image
 
-## Ejecucion
+## Construcción .env
+
+Se debe construir un .env con los siguientes valores, se agrega un ejemplo:
+
+    NAME_SERVER_HOST = "localhost"
+    NAME_SERVER_PORT = 9090
+    ESCLAVO_PREFIX = "esclavo."
+    FLASK_PORT=4000
+
+## Startup
 
 Primero se debe crear la base de datos con postgress, dejamos un comando de ejemplo donde usamos el usuario postgress y la base de datos de postgres, para cargar los schemas:
 
