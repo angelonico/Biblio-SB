@@ -39,7 +39,14 @@ def query(palabras):
     if not resultados_generales:
         return "No se encontraron resultados"
 
-    return resultados_generales
+    # Aplicar ranking por coincidencias
+    resultados_rankeados = sorted(
+        resultados_generales,
+        key=lambda resultado: rank_por_coincidencias(resultado, palabras),
+        reverse=True,  # Ordenar de mayor a menor puntaje
+    )
+
+    return resultados_rankeados
 
 
 def query_type(tipos):
@@ -60,3 +67,9 @@ def query_type(tipos):
         return "No se encontraron resultados"
 
     return resultados_generales
+
+
+def rank_por_coincidencias(resultado, palabras):
+    texto = resultado[0].lower()
+    puntaje = sum(1 for palabra in palabras if palabra.lower() in texto)
+    return puntaje
