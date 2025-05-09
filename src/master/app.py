@@ -26,7 +26,8 @@ def endpoint_listar_esclavos():
 def endpoint_consultar_esclavo(nombre_esclavo):
     """Endpoint para consultar un esclavo específico."""
     try:
-        info = consultar_esclavo(nombre_esclavo)
+        nombre_completo = f"esclavo.{nombre_esclavo}"
+        info = consultar_esclavo(nombre_completo)
         return jsonify({"nombre": nombre_esclavo, "informacion": info}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
