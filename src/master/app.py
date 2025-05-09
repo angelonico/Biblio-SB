@@ -1,6 +1,6 @@
 # Servidor Flask (recibe peticiones HTTP)
 from flask import Flask, jsonify
-from master import consultar_esclavo, listar_esclavos, query
+from master import consultar_esclavo, listar_esclavos, query, query_type
 from dotenv import load_dotenv
 import os
 
@@ -11,7 +11,7 @@ FLASK_PORT = int(os.getenv("FLASK_PORT", 5000))
 app = Flask(__name__)
 
 
-@app.route("/esclavos", methods=["GET"])
+@app.route("/tipos", methods=["GET"])
 def endpoint_listar_esclavos():
     """Endpoint para listar todos los esclavos registrados."""
     try:
@@ -22,7 +22,7 @@ def endpoint_listar_esclavos():
         return jsonify({"error": str(e)}), 500
 
 
-@app.route("/esclavos/<nombre_esclavo>", methods=["GET"])
+@app.route("/tipo/<nombre_esclavo>", methods=["GET"])
 def endpoint_consultar_esclavo(nombre_esclavo):
     """Endpoint para consultar un esclavo específico."""
     try:
@@ -35,24 +35,27 @@ def endpoint_consultar_esclavo(nombre_esclavo):
 
 @app.route("/query", methods=["GET"])
 def endpoint_buscar_por_titulo():
-    """Endpoint para buscar documentos por título en un esclavo específico."""
+    """Endpoint para buscar documentos por título en todos los esclavos."""
     from flask import request
 
     try:
-        # Obtener el parámetro 'titulo' de la URL
         titulo = request.args.get("titulo", "")
+        tipo_doc = request.args.get("tipo_doc", "")
 
-        if not titulo:
-            return (
-                jsonify({"error": "Debe proporcionar un título para buscar."}),
-                400,
-            )
+        if titulo:
+            palabras = titulo.split()
+            resultados = query(palabras)
+            return jsonify({"criterio": "titulo", "resultados": resultados}), 200
 
-        # Dividir el título en palabras clave
-        palabras = titulo.split()
-        print(palabras)
-        resultados = query(palabras)
-        return jsonify({"resultados": resultados}), 200
+        if tipo_doc:
+            tipos = tipo_doc.split()
+            resultados = query_type(tipos)
+            return jsonify({"criterio": "tipo_doc", "resultados": resultados}), 200
+
+        return (
+            jsonify({"error": "Debe proporcionar 'titulo' o 'tipo_doc' para buscar."}),
+            400,
+        )
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

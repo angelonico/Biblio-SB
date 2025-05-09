@@ -25,5 +25,16 @@ class Libro:
         except Exception as e:
             return {"error": f"Error al realizar la búsqueda: {str(e)}"}
 
+    def buscar_por_tipo(self):
+        try:
+            cursor = self.conn.cursor()
+            query = "SELECT title, type_doc, category FROM documentos"
+            cursor.execute(query)
+            resultados = cursor.fetchall()
+            cursor.close()
+            return resultados if resultados else None
+        except Exception as e:
+            return {"error": f"Error al realizar la búsqueda: {str(e)}"}
+
     def hello(self):
         return "Hola desde el servidor PDF!"

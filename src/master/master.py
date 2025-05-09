@@ -40,3 +40,23 @@ def query(palabras):
         return "No se encontraron resultados"
 
     return resultados_generales
+
+
+def query_type(tipos):
+    resultados_generales = []
+    for tipo in tipos:
+        esclavo_nombre = f"{ESCLAVO_PREFIX}{tipo}"
+        ns = Pyro5.api.locate_ns(host=NAME_SERVER_HOST, port=NAME_SERVER_PORT)
+        try:
+            uri = ns.lookup(esclavo_nombre)
+            esclavo = Pyro5.api.Proxy(uri)
+            resultado = esclavo.buscar_por_tipo()
+            if resultado:
+                resultados_generales.extend(resultado)
+        except Exception as e:
+            print(f"Error al consultar el esclavo {esclavo_nombre}: {e}")
+
+    if not resultados_generales:
+        return "No se encontraron resultados"
+
+    return resultados_generales
