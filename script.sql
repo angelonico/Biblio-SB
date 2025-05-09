@@ -35,6 +35,7 @@ CREATE TABLE documentos (
     type_doc TEXT,
     category TEXT
 );
+GRANT ALL PRIVILEGES ON TABLE documentos TO user_pdf;
 INSERT INTO documentos (title, type_doc, category) VALUES
 ('Python Basico', 'PDF', 'Programacion'),
 ('Python Avanzado', 'PDF', 'Programacion'),
@@ -85,6 +86,7 @@ CREATE TABLE documentos (
     type_doc TEXT,
     category TEXT
 );
+GRANT ALL PRIVILEGES ON TABLE documentos TO user_libros;
 INSERT INTO documentos (title, type_doc, category) VALUES
 ('El gran Gatsby', 'Libro', 'Ficcion'),
 ('1984', 'Libro', 'Distopia'),
@@ -136,6 +138,7 @@ CREATE TABLE documentos (
     type_doc TEXT,
     category TEXT
 );
+GRANT ALL PRIVILEGES ON TABLE documentos TO user_videos;
 INSERT INTO documentos (title, type_doc, category) VALUES
 ('Tutorial de Python', 'Video', 'Programacion'),
 ('Curso intensivo de Ciencia de Datos', 'Video', 'Ciencia de Datos'),
@@ -186,6 +189,7 @@ CREATE TABLE documentos (
     type_doc TEXT,
     category TEXT
 );
+GRANT ALL PRIVILEGES ON TABLE documentos TO user_imagenes;
 INSERT INTO documentos (title, type_doc, category) VALUES
 ('Logo de Python', 'Imagen', 'Programacion'),
 ('Visualizacion de Datos', 'Imagen', 'Ciencia de Datos'),

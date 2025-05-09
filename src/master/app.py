@@ -1,6 +1,6 @@
 # Servidor Flask (recibe peticiones HTTP)
 from flask import Flask, jsonify
-from master import consultar_esclavo, listar_esclavos
+from master import consultar_esclavo, listar_esclavos, query
 from dotenv import load_dotenv
 import os
 
@@ -29,6 +29,33 @@ def endpoint_consultar_esclavo(nombre_esclavo):
         nombre_completo = f"esclavo.{nombre_esclavo}"
         info = consultar_esclavo(nombre_completo)
         return jsonify({"nombre": nombre_esclavo, "informacion": info}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/query", methods=["GET"])
+def endpoint_buscar_por_titulo():
+    """Endpoint para buscar documentos por título en un esclavo específico."""
+    from flask import request
+
+    try:
+        # Obtener el parámetro 'titulo' de la URL
+        titulo = request.args.get("titulo", "")
+
+        if not titulo:
+            return (
+                jsonify({"error": "Debe proporcionar un título para buscar."}),
+                400,
+            )
+
+        # Dividir el título en palabras clave
+        palabras = titulo.split()
+
+        # Consultar al esclavo 'esclavo.pdf'
+        nombre_completo = "esclavo.pdf"
+        print(palabras)
+        resultados = query(palabras)
+        return jsonify({"nombre": "pdf", "resultados": resultados}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

@@ -13,7 +13,7 @@ class Pdf:
         try:
             cursor = self.conn.cursor()
             query = "SELECT * FROM documentos WHERE " + " OR ".join(
-                [f"titulo ILIKE %s" for _ in palabras]
+                [f"title ILIKE %s" for _ in palabras]
             )
             cursor.execute(query, [f"%{palabra}%" for palabra in palabras])
             resultados = cursor.fetchall()

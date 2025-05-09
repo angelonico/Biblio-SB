@@ -19,3 +19,10 @@ def consultar_esclavo(nombre_esclavo):
 def listar_esclavos():
     ns = Pyro5.api.locate_ns(host=NAME_SERVER_HOST, port=NAME_SERVER_PORT)
     return ns.list(prefix=ESCLAVO_PREFIX)
+
+
+def query(palabras):
+    ns = Pyro5.api.locate_ns(host=NAME_SERVER_HOST, port=NAME_SERVER_PORT)
+    uri = ns.lookup("esclavo.pdf")
+    esclavo = Pyro5.api.Proxy(uri)
+    return esclavo.buscar_por_titulo(palabras)
