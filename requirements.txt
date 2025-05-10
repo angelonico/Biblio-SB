@@ -1,7 +1,4 @@
-Librerias:
-    Pyro5
-    Flask
-    psycopg2
-    python-dotenv
-
-PostgreSQL
+Pyro5
+Flask
+psycopg
+python-dotenv
