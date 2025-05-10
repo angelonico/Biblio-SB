@@ -8,6 +8,9 @@ CREATE DATABASE videos;
 DROP DATABASE IF EXISTS imagenes;
 CREATE DATABASE imagenes;
 
+drop database if EXISTS users;
+create database users;
+
 -- Crea los usuarios con contraseñas
 DROP USER IF EXISTS user_pdf;
 CREATE USER user_pdf WITH PASSWORD 'pass_pdf';
@@ -28,6 +31,13 @@ GRANT ALL PRIVILEGES ON DATABASE videos TO user_videos;
 GRANT CONNECT ON DATABASE imagenes TO user_imagenes;
 GRANT ALL PRIVILEGES ON DATABASE imagenes TO user_imagenes;
 
+\c users
+create table users{
+    id SERIAL PRIMARY KEY,
+    name string,
+    edad int
+};
+
 \c pdf
 CREATE TABLE documentos (
     id SERIAL PRIMARY KEY,
@@ -35,6 +45,7 @@ CREATE TABLE documentos (
     type_doc TEXT,
     category TEXT
 );
+
 GRANT ALL PRIVILEGES ON TABLE documentos TO user_pdf;
 INSERT INTO documentos (title, type_doc, category) VALUES
 ('Python Basico', 'PDF', 'Programacion'),

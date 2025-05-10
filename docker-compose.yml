@@ -1,0 +1,22 @@
+services:
+    postgres:
+        image: postgres:latest
+        container_name: library
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: password
+            POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+            - "5432:5432"
+        volumes:
+            - library:/var/lib/postgresql/data # Persistent data storage
+            - ./script.sql:/docker-entrypoint-initdb.d/init.sql
+        networks:
+            - library
+
+volumes:
+    library:
+
+networks:
+    library:
+        driver: bridge
