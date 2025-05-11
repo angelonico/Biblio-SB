@@ -6,7 +6,7 @@ import os
 
 # Cargar configuración desde un archivo JSON
 def cargar_configuracion():
-    ruta_config = os.path.join(os.path.dirname(__file__), "../../../db_config.json")
+    ruta_config = os.path.join(os.path.dirname(__file__), "../../db_config.json")
     try:
         with open(ruta_config, "r") as archivo:
             return json.load(archivo)

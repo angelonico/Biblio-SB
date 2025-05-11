@@ -22,5 +22,11 @@
     "database": "imagenes",
     "user": "user_imagenes",
     "password": "pass_imagenes"
+  },
+  "users": {
+    "host": "localhost",
+    "database": "users",
+    "user": "user_admin",
+    "password": "pass_admin"
   }
 }

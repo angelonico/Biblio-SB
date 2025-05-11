@@ -38,10 +38,3 @@ def conectar_db(db_nombre):
     except psycopg2.Error as e:
         print(f"Error al conectar a la base de datos '{db_nombre}': {e}")
         return None
-
-
-# Ejemplo de uso: conectar a cada base de datos
-if __name__ == "__main__":
-    conn_pdf = conectar_db("libros")
-    if conn_pdf:
-        conn_pdf.close()

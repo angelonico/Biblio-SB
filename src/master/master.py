@@ -2,6 +2,7 @@
 import Pyro5.api
 from dotenv import load_dotenv
 import os
+from connect_db import conectar_db
 
 load_dotenv()
 NAME_SERVER_HOST = os.getenv("NAME_SERVER_HOST", "localhost")
@@ -21,9 +22,12 @@ def listar_esclavos():
     return ns.list(prefix=ESCLAVO_PREFIX)
 
 
-def query(palabras):
+def query(palabras, tipo_usuario=None):
     lista_esclavos = listar_esclavos()
     resultados_generales = []
+    categorias_interes = (
+        obtener_categorias_interes(tipo_usuario) if tipo_usuario else []
+    )
     for esclavo_nombre in lista_esclavos:
         if esclavo_nombre.startswith(ESCLAVO_PREFIX):
             ns = Pyro5.api.locate_ns(host=NAME_SERVER_HOST, port=NAME_SERVER_PORT)
@@ -39,18 +43,24 @@ def query(palabras):
     if not resultados_generales:
         return "No se encontraron resultados"
 
-    # Aplicar ranking por coincidencias
+    # Aplicar ranking por coincidencias y priorizar categorías de interés
     resultados_rankeados = sorted(
         resultados_generales,
-        key=lambda resultado: rank_por_coincidencias(resultado, palabras),
-        reverse=True,  # Ordenar de mayor a menor puntaje
+        key=lambda resultado: (
+            rank_por_coincidencias(resultado, palabras),
+            1 if resultado[2] in categorias_interes else 0,
+        ),
+        reverse=True,
     )
 
     return resultados_rankeados
 
 
-def query_type(tipos):
+def query_type(tipos, tipo_usuario=None):
     resultados_generales = []
+    categorias_interes = (
+        obtener_categorias_interes(tipo_usuario) if tipo_usuario else []
+    )
     for tipo in tipos:
         esclavo_nombre = f"{ESCLAVO_PREFIX}{tipo}"
         ns = Pyro5.api.locate_ns(host=NAME_SERVER_HOST, port=NAME_SERVER_PORT)
@@ -66,10 +76,46 @@ def query_type(tipos):
     if not resultados_generales:
         return "No se encontraron resultados"
 
-    return resultados_generales
+    # Priorizar categorías de interés
+    resultados_priorizados = sorted(
+        resultados_generales,
+        key=lambda resultado: (1 if resultado[2] in categorias_interes else 0),
+        reverse=True,
+    )
+
+    return resultados_priorizados
 
 
 def rank_por_coincidencias(resultado, palabras):
     texto = resultado[0].lower()
     puntaje = sum(1 for palabra in palabras if palabra.lower() in texto)
     return puntaje
+
+
+def obtener_categorias_interes(tipo_usuario):
+    conn = conectar_db("users")
+    if not conn:
+        print("No se pudo conectar a la base de datos 'users'")
+        return []
+
+    try:
+        cursor = conn.cursor()
+        query = """
+            SELECT c.name
+            FROM users u
+            JOIN user_categories uc ON u.id = uc.user_id
+            JOIN categories c ON uc.category_id = c.id
+            WHERE u.name = %s
+        """
+        cursor.execute(query, ("ninio" if tipo_usuario == "niño" else tipo_usuario,))
+        categorias = [fila[0] for fila in cursor.fetchall()]
+        cursor.close()
+        print(f"Categorías de interés para el usuario '{tipo_usuario}': {categorias}")
+        return categorias
+    except Exception as e:
+        print(
+            f"Error al obtener categorías de interés para el usuario '{tipo_usuario}': {e}"
+        )
+        return []
+    finally:
+        conn.close()

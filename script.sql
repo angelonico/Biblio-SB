@@ -7,7 +7,6 @@ DROP DATABASE IF EXISTS videos;
 CREATE DATABASE videos;
 DROP DATABASE IF EXISTS imagenes;
 CREATE DATABASE imagenes;
-
 drop database if EXISTS users;
 create database users;
 
@@ -20,6 +19,8 @@ DROP USER IF EXISTS user_videos;
 CREATE USER user_videos WITH PASSWORD 'pass_videos';
 DROP USER IF EXISTS user_imagenes;
 CREATE USER user_imagenes WITH PASSWORD 'pass_imagenes';
+DROP USER IF EXISTS user_admin;
+CREATE USER user_admin WITH PASSWORD 'pass_admin';
 
 -- Otorgar permisos a cada usuario para su respectiva base de datos
 GRANT CONNECT ON DATABASE pdf TO user_pdf;
@@ -30,13 +31,82 @@ GRANT CONNECT ON DATABASE videos TO user_videos;
 GRANT ALL PRIVILEGES ON DATABASE videos TO user_videos;
 GRANT CONNECT ON DATABASE imagenes TO user_imagenes;
 GRANT ALL PRIVILEGES ON DATABASE imagenes TO user_imagenes;
+GRANT CONNECT ON DATABASE users TO user_admin;
+GRANT ALL PRIVILEGES ON DATABASE users TO user_admin;
 
 \c users
-create table users{
+CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    name string,
-    edad int
-};
+    name TEXT,
+    edad0 INT, -- Rango de edad inicial
+    edad1 INT  -- Rango de edad final
+);
+CREATE TABLE categories (
+    id SERIAL PRIMARY KEY,
+    name TEXT
+);
+CREATE TABLE user_categories (
+    user_id INT REFERENCES users(id) ON DELETE CASCADE,
+    category_id INT REFERENCES categories(id) ON DELETE CASCADE,
+    PRIMARY KEY (user_id, category_id)
+);
+GRANT ALL PRIVILEGES ON TABLE users TO user_admin;
+GRANT ALL PRIVILEGES ON TABLE categories TO user_admin;
+GRANT ALL PRIVILEGES ON TABLE user_categories TO user_admin;
+INSERT INTO users (name, edad0, edad1) VALUES
+('ninio', 0, 12),
+('adolescente', 13, 17),
+('adulto joven', 18, 25),
+('adulto', 26, 64),
+('adulto mayor', 65, 120);
+INSERT INTO categories (name) VALUES
+('Programacion'),
+('Ciencia de Datos'),
+('IA'),
+('Desarrollo Web'),
+('Electronica'),
+('Matematicas'),
+('Redes'),
+('Desarrollo Movil'),
+('Diseno'),
+('Seguridad'),
+('Ciencia de la Computacion'),
+('Computacion en la Nube'),
+('Gestion de Proyectos'),
+('Mineria de Datos'),
+('Inteligencia de Negocios'),
+('SIG'),
+('Medico'),
+('Arquitectura'),
+('Diseno de Interiores'),
+('Diseno de Modas'),
+('Diseno Grafico'),
+('Fotografia'),
+('Animacion');
+INSERT INTO user_categories (user_id, category_id) VALUES
+(1, 23),  
+(1, 22); 
+INSERT INTO user_categories (user_id, category_id) VALUES
+(2, 6),  
+(2, 15),  
+(2, 16); 
+INSERT INTO user_categories (user_id, category_id) VALUES
+(3, 1),  
+(3, 2),  
+(3, 3),  
+(3, 4),  
+(3, 5),  
+(3, 7),  
+(3, 8),  
+(3, 9),  
+(3, 10),  
+(3, 11);
+INSERT INTO user_categories (user_id, category_id) VALUES
+(4, 17),
+(4, 18),  
+(4, 19),  
+(4, 20),  
+(4, 21);  
 
 \c pdf
 CREATE TABLE documentos (
@@ -234,6 +304,7 @@ INSERT INTO documentos (title, type_doc, category) VALUES
 ('Bocetos de Diseno de Modas', 'Imagen', 'Diseno de Modas'),
 ('Principios de Diseno Grafico', 'Imagen', 'Diseno Grafico'),
 ('Ilustracion Digital', 'Imagen', 'Diseno Grafico'),
+('Postal Digital Paisaje', 'Imagen', 'Diseno Grafico'),
 ('Fotografia de Paisaje', 'Imagen', 'Fotografia'),
 ('Retrato Fotografico', 'Imagen', 'Fotografia'),
 ('Diseno de Logotipos', 'Imagen', 'Diseno Grafico'),
