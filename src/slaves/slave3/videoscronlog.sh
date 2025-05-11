@@ -1,0 +1,1 @@
+cat videos.log  > ../../master/centralizedlogs.log

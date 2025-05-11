@@ -32,11 +32,11 @@ GRANT CONNECT ON DATABASE imagenes TO user_imagenes;
 GRANT ALL PRIVILEGES ON DATABASE imagenes TO user_imagenes;
 
 \c users
-create table users{
+create table users (
     id SERIAL PRIMARY KEY,
-    name string,
+    name varchar(15),
     edad int
-};
+);
 
 \c pdf
 CREATE TABLE documentos (

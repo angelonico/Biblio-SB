@@ -1,0 +1,1 @@
+cat libros.log  > ../../master/centralizedlogs.log

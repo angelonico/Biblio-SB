@@ -1,0 +1,1 @@
+cat imagenes.log  > ../../master/centralizedlogs.log

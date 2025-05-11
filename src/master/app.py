@@ -50,6 +50,8 @@ def endpoint_buscar_por_titulo():
         if tipo_doc:
             tipos = tipo_doc.split()
             resultados = query_type(tipos)
+            # print(f"\n[+] Resultados tipo documento: {resultados}\n")
+
             return jsonify({"criterio": "tipo_doc", "resultados": resultados}), 200
 
         return (

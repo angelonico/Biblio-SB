@@ -1,0 +1,1 @@
+cat pdflog.log  > ../../master/centralizedlogs.log
