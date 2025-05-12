@@ -9,6 +9,14 @@ Biblioteca digital distribuida. Sistema realizado para asigantura INFO288.
 - libro
 - image
 
+#### Tipos de usuario y rango etario
+
+- niño: 0 - 12
+- adolescente:13 - 17
+- adulto joven: 18 - 25
+- adulto: 26 - 64
+- adulto mayor: 65 - 120
+
 ## Construcción .env
 
 Se debe construir un .env con los siguientes valores, se agrega un ejemplo:
@@ -17,6 +25,8 @@ Se debe construir un .env con los siguientes valores, se agrega un ejemplo:
     NAME_SERVER_PORT = 9090
     ESCLAVO_PREFIX = "esclavo."
     FLASK_PORT=4000
+
+*Notar que se puede copiar perfectamente a modo de ejemplo.*
 
 ## Startup
 
@@ -97,10 +107,10 @@ Devuelve todos los docuemntos que sean de alguno de los tipos consultados.
 
 ### Tipo de usuario
 
-    Se debe enviar la consulta por POST con el siguiente json:
+Se debe enviar la consulta por POST con el siguiente json:
 
-    ```json
-    {
-        "tipo_usuario": "adolescente"
-    }
-    ```
+```json
+{
+    "tipo_usuario": "adolescente"
+}
+```
