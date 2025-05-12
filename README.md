@@ -78,7 +78,7 @@ start_system.bat
 
 ## Endpoints
 
-El sistema funciona mediante endpoints:
+El sistema funciona mediante endpoints, todos funcionan con el metodo GET:
 
 #### Listar esclavos
 
@@ -107,7 +107,7 @@ Devuelve todos los docuemntos que sean de alguno de los tipos consultados.
 
 ### Tipo de usuario
 
-Se debe enviar la consulta por POST con el siguiente json:
+Para especificar el tipo de usuario, se debe enviar la consulta con POST con el siguiente json:
 
 ```json
 {
