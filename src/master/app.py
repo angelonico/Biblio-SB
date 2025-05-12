@@ -13,54 +13,54 @@ app = Flask(__name__)
 
 @app.route("/tipos", methods=["GET"])
 def endpoint_listar_esclavos():
-    """Endpoint para listar todos los esclavos registrados."""
-    try:
-        esclavos = listar_esclavos()
-        esclavos_dict = list(esclavos.keys())
-        return jsonify(esclavos_dict), 200
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+	"""Endpoint para listar todos los esclavos registrados."""
+	try:
+		esclavos = listar_esclavos()
+		esclavos_dict = list(esclavos.keys())
+		return jsonify(esclavos_dict), 200
+	except Exception as e:
+		return jsonify({"error": str(e)}), 500
 
 
 @app.route("/tipos/<nombre_esclavo>", methods=["GET"])
 def endpoint_consultar_esclavo(nombre_esclavo):
-    """Endpoint para consultar un esclavo específico."""
-    try:
-        nombre_completo = f"esclavo.{nombre_esclavo}"
-        info = consultar_esclavo(nombre_completo)
-        return jsonify({"nombre": nombre_esclavo, "informacion": info}), 200
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+	"""Endpoint para consultar un esclavo específico."""
+	try:
+		nombre_completo = f"esclavo.{nombre_esclavo}"
+		info = consultar_esclavo(nombre_completo)
+		return jsonify({"nombre": nombre_esclavo, "informacion": info}), 200
+	except Exception as e:
+		return jsonify({"error": str(e)}), 500
 
 
 @app.route("/query", methods=["GET"])
 def endpoint_buscar_por_titulo():
-    """Endpoint para buscar documentos por título en todos los esclavos."""
-    from flask import request
+	"""Endpoint para buscar documentos por título en todos los esclavos."""
+	from flask import request
 
-    try:
-        titulo = request.args.get("titulo", "")
-        tipo_doc = request.args.get("tipo_doc", "")
+	try:
+		titulo = request.args.get("titulo", "")
+		tipo_doc = request.args.get("tipo_doc", "")
 
-        if titulo:
-            palabras = titulo.split()
-            resultados = query(palabras)
-            return jsonify({"criterio": "titulo", "resultados": resultados}), 200
+		if titulo:
+			palabras = titulo.split()
+			resultados = query(palabras)
+			return jsonify({"criterio": "titulo", "resultados": resultados}), 200
 
-        if tipo_doc:
-            tipos = tipo_doc.split()
-            resultados = query_type(tipos)
-            # print(f"\n[+] Resultados tipo documento: {resultados}\n")
+		if tipo_doc:
+			tipos = tipo_doc.split()
+			resultados = query_type(tipos)
+			# print(f"\n[+] Resultados tipo documento: {resultados}\n")
 
-            return jsonify({"criterio": "tipo_doc", "resultados": resultados}), 200
+			return jsonify({"criterio": "tipo_doc", "resultados": resultados}), 200
 
-        return (
-            jsonify({"error": "Debe proporcionar 'titulo' o 'tipo_doc' para buscar."}),
-            400,
-        )
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+		return (
+			jsonify({"error": "Debe proporcionar 'titulo' o 'tipo_doc' para buscar."}),
+			400,
+		)
+	except Exception as e:
+		return jsonify({"error": str(e)}), 500
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=FLASK_PORT)
+	app.run(host="0.0.0.0", port=FLASK_PORT)

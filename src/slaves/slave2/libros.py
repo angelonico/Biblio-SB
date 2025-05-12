@@ -23,6 +23,7 @@ class Libro:
 		self.conn = conectar_db("libros")
 		if not self.conn:
 			raise Exception("No se pudo establecer conexión con la base de datos")
+		self.logger = logger 
 
 	def buscar_por_titulo(self, palabras):
 		try:
@@ -33,6 +34,7 @@ class Libro:
 				"SELECT title, type_doc, category FROM documentos WHERE "
 				+ " OR ".join([f"title ILIKE %s" for _ in palabras])
 			)
+			print(f"Query: {query}")
 			cursor.execute(query, [f"%{palabra}%" for palabra in palabras])
 			resultados = cursor.fetchall()
 			cursor.close()
@@ -43,7 +45,7 @@ class Libro:
 			return resultados if resultados else None
 
 		except Exception as e:
-			return {"error": f"Error al realizar la búsqueda: {str(e)}"}
+			return {"error aqui xd": f"Error al realizar la búsqueda: {str(e)}"}
 
 	def buscar_por_tipo(self):
 		try:

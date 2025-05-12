@@ -23,11 +23,12 @@ class Pdf:
 		self.conn = conectar_db("pdf")
 		if not self.conn:
 			raise Exception("No se pudo establecer conexión con la base de datos")
-		self.logger = logger 
+		self.logger = logger
 
 	def buscar_por_titulo(self, palabras):
 		try:
 			initial_datetime = datetime.datetime.now()
+
 			cursor = self.conn.cursor()
 			query = (
 				"SELECT title, type_doc, category FROM documentos WHERE "
@@ -41,6 +42,7 @@ class Pdf:
 			self.logger.info(f"{initial_datetime}, {final_datetime}, esclavo-2, esclavo, {query}, {resultados}")
 
 			return resultados if resultados else None
+		
 		except Exception as e:
 			return {"error": f"Error al realizar la búsqueda: {str(e)}"}
 

@@ -24,6 +24,7 @@ class Video:
 		self.conn = conectar_db("videos")
 		if not self.conn:
 			raise Exception("No se pudo establecer conexión con la base de datos")
+		self.logger = logger 
 
 	def buscar_por_titulo(self, palabras):
 		try:

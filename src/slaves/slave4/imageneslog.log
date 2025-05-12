@@ -1,0 +1,1 @@
+2025-05-11 20:14:56,702 - INFO - 2025-05-11 20:14:56.700957, 2025-05-11 20:14:56.702154, esclavo-2, esclavo, SELECT title, type_doc, category FROM documentos WHERE title ILIKE %s OR title ILIKE %s, []
