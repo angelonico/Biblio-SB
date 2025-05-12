@@ -4,10 +4,11 @@ Biblioteca digital distribuida. Sistema realizado para asigantura INFO288.
 
 #### Nombres de los tipos disponibles
 
-- video
+- videos
 - pdf
-- libro
-- image
+- libros
+- imagenes
+-
 
 ## Construcción .env
 
