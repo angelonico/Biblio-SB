@@ -1,32 +1,30 @@
 {
   "pdf": {
     "host": "localhost",
-    "database": "pdf",
-    "user": "user_pdf",
-    "password": "pass_pdf"
+    "port": 5432,
+    "user": "postgres",
+    "password": "postgres",
+    "dbname": "pdf"
   },
   "libros": {
     "host": "localhost",
-    "database": "libros",
-    "user": "user_libros",
-    "password": "pass_libros"
+    "port": 5432,
+    "user": "postgres",
+    "password": "postgres",
+    "dbname": "libros"
   },
   "videos": {
     "host": "localhost",
-    "database": "videos",
-    "user": "user_videos",
-    "password": "pass_videos"
+    "port": 5432,
+    "user": "postgres",
+    "password": "postgres",
+    "dbname": "videos"
   },
   "imagenes": {
     "host": "localhost",
-    "database": "imagenes",
-    "user": "user_imagenes",
-    "password": "pass_imagenes"
-  },
-  "users": {
-    "host": "localhost",
-    "database": "users",
-    "user": "user_admin",
-    "password": "pass_admin"
+    "port": 5432,
+    "user": "postgres",
+    "password": "postgres",
+    "dbname": "imagenes"
   }
 }

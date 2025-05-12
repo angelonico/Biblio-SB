@@ -1,5 +1,5 @@
 # Configuración DB para este esclavo
-import psycopg2
+import psycopg
 import json
 import os
 
@@ -30,11 +30,11 @@ def conectar_db(db_nombre):
         return None
 
     try:
-        conn = psycopg2.connect(**config)
+        conn = psycopg.connect(**config)
         print(
             f"Conexión exitosa a la base de datos '{db_nombre}' como usuario '{config['user']}'"
         )
         return conn
-    except psycopg2.Error as e:
+    except psycopg.Error as e:
         print(f"Error al conectar a la base de datos '{db_nombre}': {e}")
         return None
