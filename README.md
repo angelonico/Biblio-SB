@@ -20,13 +20,13 @@ Se debe construir un .env con los siguientes valores, se agrega un ejemplo:
 
 ## Startup
 
-1. Se debe crear la base de datos con postgres, dejamos un comando de ejemplo donde usamos el usuario postgress y la base de datos de postgres, para cargar los schemas:
+### 1. Se debe crear la base de datos con postgres, dejamos un comando de ejemplo donde usamos el usuario postgress y la base de datos de postgres, para cargar los schemas:
 
 ```bash
 psql -U postgres -d postgres -f script.sql
 ```
 
-2. Instalar crontab o cronie para ejecutar las tareas en tiempo periodoco
+### 2. Instalar crontab o cronie para ejecutar las tareas en tiempo periodoco
 
 Para ubuntu:
 ```bash
@@ -38,7 +38,7 @@ Para Arch:
 sudo pacman -S cronie
 ```
 
-3. Levantar el servicio cron
+### 3. Levantar el servicio cron
 
 Arch:
 ```bash
@@ -46,17 +46,17 @@ sudo systemctl start cronie
 sudo systemctl enable cronie
 ```
 
-4. Dar permisos de ejecucion para los script sh encargados de mover los logs:
+### 4. Dar permisos de ejecucion para los script sh encargados de mover los logs:
 ```bash
 chmod +x grantpermissions.sh
 ./grantpermissions.sh
 ```
-5. Ejecutar el script en python que dejara las tareas cron corriendo:
+### 5. Ejecutar el script en python que dejara las tareas cron corriendo:
 ```zsh
 python3 src/slaves/cronjobs.py
 ``` 
 
-6. Luego dejamos dos opciones para **levantar** el sistema, mediante un archivo .bat o con un script de Python, ambas opciones levantan el DNS, los esclavos, y el maestro.
+### 6. Luego dejamos dos opciones para **levantar** el sistema, mediante un archivo .bat o con un script de Python, ambas opciones levantan el DNS, los esclavos, y el maestro.
 
 ```bash
 python start_system.py
