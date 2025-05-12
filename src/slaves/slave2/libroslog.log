@@ -1,1 +1,3 @@
 
+2025-05-11 22:46:41,739 - INFO - 2025-05-11 22:46:41.737936, 2025-05-11 22:46:41.739348, esclavo-2, esclavo, SELECT title, type_doc, category FROM documentos WHERE title ILIKE %s OR title ILIKE %s, []
+2025-05-11 22:46:41,755 - INFO - 2025-05-11 22:46:41.755421, 2025-05-11 22:46:41.755832, esclavo-2, esclavo, SELECT title, type_doc, category FROM documentos WHERE title ILIKE %s OR title ILIKE %s, []

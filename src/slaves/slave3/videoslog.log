@@ -1,1 +1,3 @@
 
+2025-05-11 22:46:41,735 - INFO - 2025-05-11 22:46:41.733388, 2025-05-11 22:46:41.735229, esclavo-3, esclavo, SELECT title, type_doc, category FROM documentos WHERE title ILIKE %s OR title ILIKE %s, [('Tutorial de Python', 'Video', 'Programacion')]
+2025-05-11 22:46:41,753 - INFO - 2025-05-11 22:46:41.753024, 2025-05-11 22:46:41.753499, esclavo-3, esclavo, SELECT title, type_doc, category FROM documentos WHERE title ILIKE %s OR title ILIKE %s, [('Tutorial de Python', 'Video', 'Programacion')]

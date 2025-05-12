@@ -93,3 +93,14 @@ Realiza una busqueda por titulo de documento a todos los esclavos disponibles. D
     http://localhost:4000/query?tipo_doc=pdf+videos
 
 Devuelve todos los docuemntos que sean de alguno de los tipos consultados.
+
+
+### Tipo de usuario
+
+    Se debe enviar la consulta por POST con el siguiente json:
+
+    ```json
+    {
+        "tipo_usuario": "adolescente"
+    }
+    ```
